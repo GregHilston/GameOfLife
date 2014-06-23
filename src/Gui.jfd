@@ -1,0 +1,25 @@
+JFDML JFormDesigner: "5.1.3.0.158" Java: "1.6.0_31" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"title": "Game of Life"
+			"visible": true
+			"$sizePolicy": 0
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
+				"columns": 10
+				"rows": 10
+			} ) {
+				name: "panel"
+				"preferredSize": new java.awt.Dimension( 700, 700 )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

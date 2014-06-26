@@ -6,17 +6,143 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
 			"visible": true
+			"defaultCloseOperation": 2
+			"$sizePolicy": 0
+			"minimumSize": new java.awt.Dimension( 32, 76 )
+			"title": "Game of Life Configuration Panel"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "dialogPane"
 				"border": new javax.swing.border.EmptyBorder( 12, 12, 12, 12 )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) ) {
-					name: "contentPanel"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label1"
-						"text": "text"
+				"preferredSize": new java.awt.Dimension( 598, 598 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+					name: "acknowledgementPanel"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "okButton"
+						"text": "Ok"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "okButtonActionPerformed", true ) )
 					} )
-					add( new FormComponent( "javax.swing.JFormattedTextField" ) {
-						name: "formattedTextField1"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "cancelButton"
+						"text": "Cancel"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancelButtonActionPerformed", true ) )
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "South"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) {
+					"axis": 1
+				} ) {
+					name: "configurablePanel"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "numRowsLabel"
+						"text": "Number of Rows: "
+					} )
+					add( new FormComponent( "javax.swing.JSlider" ) {
+						name: "numRowsSlider"
+						"majorTickSpacing": 10
+						"minimum": 10
+						"paintTicks": true
+						"snapToTicks": true
+						"paintLabels": true
+						"minorTickSpacing": 2
+						addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "numRowsSliderStateChanged", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "numColLabel"
+						"text": "Number of Cols: "
+					} )
+					add( new FormComponent( "javax.swing.JSlider" ) {
+						name: "numColsSlider"
+						"foreground": new java.awt.Color( 0, 0, 0, 255 )
+						"majorTickSpacing": 10
+						"minimum": 10
+						"paintTicks": true
+						"snapToTicks": true
+						"paintLabels": true
+						"minorTickSpacing": 2
+						addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "numColsSliderStateChanged", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "livePercentageLabel"
+						"text": "Alive Cells Percentage: "
+					} )
+					add( new FormComponent( "javax.swing.JSlider" ) {
+						name: "livePercentageSlider"
+						"minimum": 5
+						"maximum": 30
+						"majorTickSpacing": 5
+						"snapToTicks": true
+						"paintTicks": true
+						"paintLabels": true
+						"minorTickSpacing": 1
+						"value": 10
+						addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "livePercentageSliderStateChanged", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "generationTimerLabel"
+						"text": "Generation Timer (ms)"
+					} )
+					add( new FormComponent( "javax.swing.JSlider" ) {
+						name: "generationTimerSlider"
+						"maximum": 1000
+						"minimum": 250
+						"majorTickSpacing": 250
+						"paintTicks": true
+						"snapToTicks": true
+						"paintLabels": true
+						"minorTickSpacing": 50
+						"value": 500
+						"foreground": new java.awt.Color( 0, 0, 0, 255 )
+						addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "generationTimerSliderStateChanged", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "aliveColorLabel"
+						"text": "Alive Color"
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "aliveColorPane"
+						add( new FormComponent( "javax.swing.JList" ) {
+							name: "aliveColorList"
+							"model": new javax.swing.DefaultListModel {
+								addElement( "Black" )
+								addElement( "Blue" )
+								addElement( "Cyan" )
+								addElement( "Gray" )
+								addElement( "Magenta" )
+								addElement( "Orange" )
+								addElement( "Pink" )
+								addElement( "Red" )
+								addElement( "White" )
+								addElement( "Yellow" )
+							}
+							"cursor": &Cursor0 new java.awt.Cursor( 12 )
+							addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "aliveColorListValueChanged", true ) )
+							addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "aliveColorListValueChanged", true ) )
+						} )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "deadColorLabel"
+						"text": "Dead Color"
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "deadColorPane"
+						add( new FormComponent( "javax.swing.JList" ) {
+							name: "deadColorList"
+							"model": new javax.swing.DefaultListModel {
+								addElement( "Black" )
+								addElement( "Blue" )
+								addElement( "Cyan" )
+								addElement( "Gray" )
+								addElement( "Magenta" )
+								addElement( "Orange" )
+								addElement( "Pink" )
+								addElement( "Red" )
+								addElement( "White" )
+								addElement( "Yellow" )
+							}
+							"cursor": #Cursor0
+							addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "deadColorListValueChanged", true ) )
+						} )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"
@@ -26,7 +152,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 400, 300 )
+			"size": new java.awt.Dimension( 690, 555 )
 		} )
 	}
 }

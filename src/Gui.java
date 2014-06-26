@@ -1,58 +1,43 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 /**
  * @author Greg Hilston
  */
 public class Gui extends JFrame {
-    private static final int SIZE = GameOfLifeApp.SIZE;
+    private static final int NUMCOLS = GameOfLifeApp.getNumCols();
+    private static final int NUMROWS = GameOfLifeApp.getNumRows();
     public static JButton[][]buttons;
 
     public Gui() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
     }
-    /*
-        JButton[][]buttons;
-        buttons = new JButton[SIZE][SIZE];
 
-        for(int col = 0; col < SIZE; col++) {
-            for(int row = 0; row < SIZE; row++)
-            {
-                Cell curCell = GameOfLifeApp.board[col][row];
-                JButton curButton = new JButton();
-                if(curCell.isAlive) {
-                    curButton.setBackground(Color.GREEN);
-                } else {
-                    curButton.setBackground(Color.BLACK);
-                }
-
-                buttons[col][row] = curButton;
-                panel.add(buttons[col][row]);
-            }
-        }
-
-     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel = new JPanel();
 
+        buttons = new JButton[NUMROWS][NUMCOLS];
 
-        buttons = new JButton[SIZE][SIZE];
-
-        for(int col = 0; col < SIZE; col++) {
-            for(int row = 0; row < SIZE; row++)
+        for(int row = 0; row < NUMROWS; row++) {
+            for(int col = 0; col < NUMCOLS; col++)
             {
-                Cell curCell = GameOfLifeApp.board[col][row];
+                Cell curCell = GameOfLifeApp.board[row][col];
                 JButton curButton = new JButton();
-                if(curCell.isAlive) {
-                    curButton.setBackground(Color.GREEN);
+
+                Border emptyBorder = BorderFactory.createEmptyBorder();
+                curButton.setBorder(emptyBorder);
+
+                if(curCell.getAlive()) {
+                    curButton.setBackground(GameOfLifeApp.getAliveColor());
                 } else {
-                    curButton.setBackground(Color.BLACK);
+                    curButton.setBackground(GameOfLifeApp.getDeadColor());
                 }
 
-                buttons[col][row] = curButton;
-                panel.add(buttons[col][row]);
+                buttons[row][col] = curButton;
+                panel.add(buttons[row][col]);
             }
         }
 
@@ -65,7 +50,7 @@ public class Gui extends JFrame {
         //======== panel ========
         {
             panel.setPreferredSize(new Dimension(700, 700));
-            panel.setLayout(new GridLayout(GameOfLifeApp.SIZE, GameOfLifeApp.SIZE));
+            panel.setLayout(new GridLayout(GameOfLifeApp.getNumRows(), GameOfLifeApp.getNumCols()));
         }
         contentPane.add(panel, BorderLayout.CENTER);
         pack();

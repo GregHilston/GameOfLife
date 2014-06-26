@@ -69,13 +69,13 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JSlider" ) {
 						name: "livePercentageSlider"
 						"minimum": 5
-						"maximum": 30
+						"maximum": 90
 						"majorTickSpacing": 5
 						"snapToTicks": true
 						"paintTicks": true
 						"paintLabels": true
 						"minorTickSpacing": 1
-						"value": 10
+						"value": 35
 						addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "livePercentageSliderStateChanged", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {

@@ -1,7 +1,5 @@
-import java.awt.*;
-
 public class Cell implements UpdateAble{
-    private int row, col, aliveNeighborsCount;
+    private int row, col;
     private Boolean isAlive;
 
     public Cell(int row, int col, Boolean isAlive) {
@@ -26,11 +24,8 @@ public class Cell implements UpdateAble{
         isAlive = alive;
     }
 
-    public int getAliveNeighborsCount() {
-        return aliveNeighborsCount;
-    }
-
-    private void calculateAliveNeighbors() {
+    private int calculateAliveNeighbors() {
+        int aliveNeighborsCount = 0;
         final int MIN_X = 0;
         final int MIN_Y = 0;
         final int MAX_X = GameOfLifeApp.getNumRows() - 1;
@@ -41,16 +36,16 @@ public class Cell implements UpdateAble{
         int endPosX =   (getRow() + 1 > MAX_X) ? getRow() : getRow() + 1;
         int endPosY =   (getCol() + 1 > MAX_Y) ? getCol() : getCol() + 1;
 
-        aliveNeighborsCount = 0;
-
         // See how many are alive
         for (int row = startPosX; row <= endPosX; row++) {
             for (int col = startPosY; col <= endPosY; col++) {
-                if(GameOfLifeApp.board[row][col].getAlive()) {
+                if(GameOfLifeApp.readBoard[row][col].getAlive()) {
                     aliveNeighborsCount++;
                 }
             }
         }
+
+        return aliveNeighborsCount;
     }
 
     /*
@@ -61,22 +56,19 @@ public class Cell implements UpdateAble{
      */
     @Override
     public void update() {
-        calculateAliveNeighbors();
+        int aliveNeighborsCount = calculateAliveNeighbors();
 
         if(getAlive()) { // This cell is alive
-            if(getAliveNeighborsCount() < 2) {
-                setAlive(false); // Death by loneliness
-                Gui.buttons[row][col].setBackground(GameOfLifeApp.getDeadColor());
+            if(aliveNeighborsCount < 2) {
+                GameOfLifeApp.writeBoard[getRow()][getCol()].setAlive(false);  // Death by loneliness
             }
-            else if(getAliveNeighborsCount() > 3) {
-                setAlive(false); // Death by overcrowding
-                Gui.buttons[row][col].setBackground(GameOfLifeApp.getDeadColor());
+            else if(aliveNeighborsCount > 3) {
+                GameOfLifeApp.writeBoard[getRow()][getCol()].setAlive(false); // Death by overcrowding
             }
         }
         else { // This cell is dead
-            if(getAliveNeighborsCount() == 3) {
-                setAlive(true); // Life by reproduction
-                Gui.buttons[row][col].setBackground(GameOfLifeApp.getAliveColor());
+            if(aliveNeighborsCount == 3) {
+                GameOfLifeApp.writeBoard[getRow()][getCol()].setAlive(true); // Life by reproduction
             }
         }
     }

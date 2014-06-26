@@ -4,7 +4,6 @@ import java.beans.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
-import info.clearthought.layout.*;
 
 /**
  * @author Greg Hilston
@@ -234,13 +233,13 @@ public class ConfigPanel extends JFrame {
 
                 //---- livePercentageSlider ----
                 livePercentageSlider.setMinimum(5);
-                livePercentageSlider.setMaximum(30);
+                livePercentageSlider.setMaximum(90);
                 livePercentageSlider.setMajorTickSpacing(5);
                 livePercentageSlider.setSnapToTicks(true);
                 livePercentageSlider.setPaintTicks(true);
                 livePercentageSlider.setPaintLabels(true);
                 livePercentageSlider.setMinorTickSpacing(1);
-                livePercentageSlider.setValue(10);
+                livePercentageSlider.setValue(35);
                 livePercentageSlider.addChangeListener(new ChangeListener() {
                     @Override
                     public void stateChanged(ChangeEvent e) {
@@ -354,10 +353,10 @@ public class ConfigPanel extends JFrame {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
 
         // Get initial/default values
-        updateNumRows((int)numRowsSlider.getValue());
-        updateNumCols((int)numColsSlider.getValue());
-        updateLivePercentage((int)livePercentageSlider.getValue());
-        updateGenerationTimer((int)generationTimerSlider.getValue());
+        updateNumRows(numRowsSlider.getValue());
+        updateNumCols(numColsSlider.getValue());
+        updateLivePercentage(livePercentageSlider.getValue());
+        updateGenerationTimer(generationTimerSlider.getValue());
         // updateAliveColor((String)aliveColorList.getSelectedValue()); // Nothing selected by default
         // updateDeadColor((String)deadColorList.getSelectedValue()); // Nothing selected by default
     }

@@ -24,7 +24,7 @@ public class Gui extends JFrame {
         for(int row = 0; row < NUMROWS; row++) {
             for(int col = 0; col < NUMCOLS; col++)
             {
-                Cell curCell = GameOfLifeApp.board[row][col];
+                Cell curCell = GameOfLifeApp.readBoard[row][col];
                 JButton curButton = new JButton();
 
                 Border emptyBorder = BorderFactory.createEmptyBorder();

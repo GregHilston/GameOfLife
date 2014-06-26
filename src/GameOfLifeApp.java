@@ -7,13 +7,15 @@ import java.awt.event.WindowEvent;
 import java.util.Random;
 
 public class GameOfLifeApp {
-    public static Cell board[][];
+    // Two boards are used, one only for reading and the other only for writing. Double memory usage but many benefits
+    public static Cell readBoard[][];
+    public static Cell writeBoard[][];
     private static Object lock = new Object();
 
     // Set by configuration panel
     private static int numRows = 50;
     private static int numCols = 50;
-    private static int livePercentage = 10;
+    private static int livePercentage = 35;
     private static int generationTimer = 500;
     private static Color aliveColor = Color.BLACK;
     private static Color deadColor = Color.WHITE;
@@ -52,7 +54,8 @@ public class GameOfLifeApp {
         }
         // End of waiting on configPanel
 
-        board = new Cell[numRows][numCols];
+        readBoard = new Cell[numRows][numCols];
+        writeBoard = new Cell[numRows][numCols];
         Boolean isAlive;
         Random generator = new Random();
         int randomNumber;
@@ -68,7 +71,8 @@ public class GameOfLifeApp {
                     isAlive = false;
                 }
 
-                board[row][col] = new Cell(row, col, isAlive);
+                readBoard[row][col] = new Cell(row, col, isAlive);
+                writeBoard[row][col] = new Cell(row, col, false);
             }
         }
 
@@ -76,15 +80,44 @@ public class GameOfLifeApp {
 
         ActionListener updateEveryCell = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                for(int row = 0; row < numRows; row++) {
-                    for(int col = 0; col < numCols; col++) {
-                        board[row][col].update();
-                    }
-                }
+                newGeneration();
             }
         };
         Timer updateTimer = new Timer(generationTimer, updateEveryCell);
         updateTimer.start();
+    }
+
+    private static void newGeneration() {
+
+        // Update our write board
+        for(int row = 0; row < numRows; row++) {
+            for(int col = 0; col < numCols; col++) {
+                readBoard[row][col].update();
+            }
+        }
+
+        // Copy the write board to the read board
+        for(int row = 0; row < numRows; row++) {
+            for(int col = 0; col < numCols; col++) {
+                readBoard[row][col].setAlive(writeBoard[row][col].getAlive());
+            }
+        }
+
+        // TODO: Do we need to clear our write board?
+        updateGUI();
+    }
+
+    private static void updateGUI() {
+        for(int row = 0; row < numRows; row++) {
+            for(int col = 0; col < numCols; col++) {
+                if(readBoard[row][col].getAlive()) {
+                    Gui.buttons[row][col].setBackground(aliveColor);
+                }
+                else {
+                    Gui.buttons[row][col].setBackground(deadColor);
+                }
+            }
+        }
     }
 
     public static int getNumCols() {

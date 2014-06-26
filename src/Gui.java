@@ -18,6 +18,7 @@ public class Gui extends JFrame {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel = new JPanel();
+        generationLabel = new JLabel();
 
         buttons = new JButton[NUMROWS][NUMCOLS];
 
@@ -53,6 +54,11 @@ public class Gui extends JFrame {
             panel.setLayout(new GridLayout(GameOfLifeApp.getNumRows(), GameOfLifeApp.getNumCols()));
         }
         contentPane.add(panel, BorderLayout.CENTER);
+
+        //---- generationLabel ----
+        generationLabel.setText("Generation: 1");
+        contentPane.add(generationLabel, BorderLayout.SOUTH);
+
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -60,5 +66,6 @@ public class Gui extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JPanel panel;
+    public static JLabel generationLabel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

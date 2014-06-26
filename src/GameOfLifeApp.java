@@ -11,11 +11,12 @@ public class GameOfLifeApp {
     public static Cell readBoard[][];
     public static Cell writeBoard[][];
     private static Object lock = new Object();
+    private static int generationCount = 1;
 
     // Set by configuration panel
     private static int numRows = 50;
     private static int numCols = 50;
-    private static int livePercentage = 35;
+    private static int livePercentage = 25;
     private static int generationTimer = 500;
     private static Color aliveColor = Color.BLACK;
     private static Color deadColor = Color.WHITE;
@@ -88,6 +89,8 @@ public class GameOfLifeApp {
     }
 
     private static void newGeneration() {
+        generationCount++;
+        Gui.generationLabel.setText("Generation: " + generationCount);
 
         // Update our write board
         for(int row = 0; row < numRows; row++) {

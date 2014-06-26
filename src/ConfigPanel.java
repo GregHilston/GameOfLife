@@ -9,6 +9,17 @@ import javax.swing.event.*;
  * @author Greg Hilston
  */
 public class ConfigPanel extends JFrame {
+    private String aboutString = "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.\n" +
+            "\n" +
+            "The \"game\" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves.\n\n" +
+            "The Simulation follows these four rules: " +
+            "\n" +
+            "\t1. Any live cell with fewer than two live neighbours dies, as if caused by loneliness.\n" +
+            "\t2. Any live cell with two or three live neighbours lives on to the next generation.\n" +
+            "\t3. Any live cell with more than three live neighbours dies, as if by overcrowding.\n" +
+            "\t4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.";
+
+
     public ConfigPanel() {
         initComponents();
     }
@@ -122,12 +133,18 @@ public class ConfigPanel extends JFrame {
         updateDeadColor(colorSelected);
     }
 
+    private void aboutButtonActionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(this, aboutString);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         dialogPane = new JPanel();
         acknowledgementPanel = new JPanel();
         okButton = new JButton();
         cancelButton = new JButton();
+        hSpacer1 = new JPanel(null);
+        aboutButton = new JButton();
         configurablePanel = new JPanel();
         numRowsLabel = new JLabel();
         numRowsSlider = new JSlider();
@@ -181,6 +198,17 @@ public class ConfigPanel extends JFrame {
                     }
                 });
                 acknowledgementPanel.add(cancelButton);
+                acknowledgementPanel.add(hSpacer1);
+
+                //---- aboutButton ----
+                aboutButton.setText("About");
+                aboutButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        aboutButtonActionPerformed(e);
+                    }
+                });
+                acknowledgementPanel.add(aboutButton);
             }
             dialogPane.add(acknowledgementPanel, BorderLayout.SOUTH);
 
@@ -232,14 +260,14 @@ public class ConfigPanel extends JFrame {
                 configurablePanel.add(livePercentageLabel);
 
                 //---- livePercentageSlider ----
-                livePercentageSlider.setMinimum(5);
-                livePercentageSlider.setMaximum(90);
+                livePercentageSlider.setMinimum(10);
+                livePercentageSlider.setMaximum(50);
                 livePercentageSlider.setMajorTickSpacing(5);
                 livePercentageSlider.setSnapToTicks(true);
                 livePercentageSlider.setPaintTicks(true);
                 livePercentageSlider.setPaintLabels(true);
                 livePercentageSlider.setMinorTickSpacing(1);
-                livePercentageSlider.setValue(35);
+                livePercentageSlider.setValue(25);
                 livePercentageSlider.addChangeListener(new ChangeListener() {
                     @Override
                     public void stateChanged(ChangeEvent e) {
@@ -366,6 +394,8 @@ public class ConfigPanel extends JFrame {
     private JPanel acknowledgementPanel;
     private JButton okButton;
     private JButton cancelButton;
+    private JPanel hSpacer1;
+    private JButton aboutButton;
     private JPanel configurablePanel;
     private JLabel numRowsLabel;
     private JSlider numRowsSlider;

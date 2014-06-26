@@ -26,6 +26,14 @@ new FormModel {
 						"text": "Cancel"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancelButtonActionPerformed", true ) )
 					} )
+					add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
+						name: "hSpacer1"
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "aboutButton"
+						"text": "About"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "aboutButtonActionPerformed", true ) )
+					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "South"
 				} )
@@ -68,14 +76,14 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JSlider" ) {
 						name: "livePercentageSlider"
-						"minimum": 5
-						"maximum": 90
+						"minimum": 10
+						"maximum": 50
 						"majorTickSpacing": 5
 						"snapToTicks": true
 						"paintTicks": true
 						"paintLabels": true
 						"minorTickSpacing": 1
-						"value": 35
+						"value": 25
 						addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "livePercentageSliderStateChanged", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {

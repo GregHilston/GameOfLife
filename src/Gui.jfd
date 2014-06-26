@@ -17,6 +17,12 @@ new FormModel {
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"
 			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "generationLabel"
+				"text": "Generation: "
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 400, 300 )

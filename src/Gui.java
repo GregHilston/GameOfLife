@@ -18,7 +18,10 @@ public class Gui extends JFrame {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel = new JPanel();
+        infoPanel = new JPanel();
         generationLabel = new JLabel();
+        hSpacer1 = new JPanel(null);
+        populationLabel = new JLabel();
 
         buttons = new JButton[NUMROWS][NUMCOLS];
 
@@ -55,10 +58,20 @@ public class Gui extends JFrame {
         }
         contentPane.add(panel, BorderLayout.CENTER);
 
-        //---- generationLabel ----
-        generationLabel.setText("Generation: 1");
-        contentPane.add(generationLabel, BorderLayout.SOUTH);
+        //======== infoPanel ========
+        {
+            infoPanel.setLayout(new FlowLayout());
 
+            //---- generationLabel ----
+            generationLabel.setText("Generation: ");
+            infoPanel.add(generationLabel);
+            infoPanel.add(hSpacer1);
+
+            //---- populationLabel ----
+            populationLabel.setText("Population: ");
+            infoPanel.add(populationLabel);
+        }
+        contentPane.add(infoPanel, BorderLayout.SOUTH);
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -66,6 +79,9 @@ public class Gui extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JPanel panel;
+    private JPanel infoPanel;
     public static JLabel generationLabel;
+    private JPanel hSpacer1;
+    public static JLabel populationLabel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

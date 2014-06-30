@@ -56,6 +56,10 @@ public class Cell implements UpdateAble{
      */
     @Override
     public void update() {
+        if(getAlive()) {
+            GameOfLifeApp.populationCount++;
+        }
+
         int aliveNeighborsCount = calculateAliveNeighbors();
 
         if(getAlive()) { // This cell is alive

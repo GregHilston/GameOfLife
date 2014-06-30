@@ -10,8 +10,9 @@ public class GameOfLifeApp {
     // Two boards are used, one only for reading and the other only for writing. Double memory usage but many benefits
     public static Cell readBoard[][];
     public static Cell writeBoard[][];
-    private static Object lock = new Object();
+    private final static Object lock = new Object();
     private static int generationCount = 1;
+    public static int populationCount = 0;
 
     // Set by configuration panel
     private static int numRows = 50;
@@ -65,12 +66,7 @@ public class GameOfLifeApp {
             for(int col = 0; col < numCols; col++) {
                 randomNumber = generator.nextInt(100);
 
-                if(randomNumber < livePercentage) {
-                    isAlive = true;
-                }
-                else {
-                    isAlive = false;
-                }
+                isAlive = randomNumber < livePercentage;
 
                 readBoard[row][col] = new Cell(row, col, isAlive);
                 writeBoard[row][col] = new Cell(row, col, false);
@@ -89,8 +85,8 @@ public class GameOfLifeApp {
     }
 
     private static void newGeneration() {
+        populationCount = 0;
         generationCount++;
-        Gui.generationLabel.setText("Generation: " + generationCount);
 
         // Update our write board
         for(int row = 0; row < numRows; row++) {
@@ -105,6 +101,9 @@ public class GameOfLifeApp {
                 readBoard[row][col].setAlive(writeBoard[row][col].getAlive());
             }
         }
+
+        Gui.generationLabel.setText("Generation: " + generationCount);
+        Gui.populationLabel.setText("Population: " + populationCount);
 
         // TODO: Do we need to clear our write board?
         updateGUI();
